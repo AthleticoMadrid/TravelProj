@@ -1,0 +1,1214 @@
+@import "./reset.css";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+:root { /* переменные CSS (верхнего уровня) */
+    --container-width: 1270px; /* ширина контейнера (с полями) */
+    --container-padding: 15px; /* ширина полей */
+    --secondary: rgba(15, 31, 28, 0.5); /* цвет осн. текста с прозрачностью 0.5 (50%) */
+    --orange: #ff7c4e;
+
+    /* для иконки навигации */
+    --color-icon: yellow;
+    --width-icon: 30px;
+    --height-icon: 5px;
+}
+
+body {
+    font-family: 'Poppins', sans-serif; /* семейство шрифтов */
+    background-color: #F6F6F6; /* цвет фона проекта */
+    color: #0F1F1C; /* цвет шрифта текста */
+}
+
+/* вспомогательные классы */
+.none { /* нужен при вёрстке, чтобы не оталекало лишнее */
+    display: none !important;   /* для скрытия секций и элементов */
+}
+
+.container {  /* стандартный контейнер */
+    max-width: var(--container-width);  /* ширина контейнера из переменной CSS */
+    padding: 0 var(--container-padding);  /* левый и правый отступы */
+    margin: 0 auto; /* делает контейнер по центру */
+}
+
+.container-right {  /* нестандартный контейнер (уходящий вправо за экран) */
+    padding-left: calc((100% - var(--container-width)) / 2 + 
+                    var(--container-padding));   /* 100% - ширина страницы */
+}
+
+.container-left {  /* нестандартный контейнер (уходящий вправо за экран) */
+    padding-right: calc((100% - var(--container-width)) / 2 + 
+                    var(--container-padding));   /* 100% - ширина страницы */
+}
+
+.block {    /* просто блок */
+    height: 200px;
+    background-color: darkseagreen; /* цвет фона */
+}
+
+/* Шапка */
+.header {
+    position: relative; /* родитель */
+    min-height: 940px;  /* мин. высота */
+    padding-top: 44px;  /* отступ от верхней границы экрана */
+    overflow: hidden;   /* чтобы картинка девушки не выпадала из шапки */
+
+    color: #FFF;  /* цвет текста */
+    background: linear-gradient(132.05deg, #428E5F -17.38%, #112120 78.4%), #204434;   /* цвет и градиент фона шапки */ 
+}
+
+.header a {     /* все ссылки шапки */
+    color: inherit;  /* наследуют цвет текста родителя (т.е. шапки), т.е. #FFF */
+}
+
+.header::after {
+    content: ""; /* чтобы отображался этот псевдоэлемент */
+    position: absolute; /* дочерний */
+
+    /* левый нижний угол */
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 96px;   /* высота элемента header-bottom.svg */
+
+
+    /* путь к элементу */
+    background-image: url("../img/Header/header-bottom.svg");
+    background-size: 100%;  /* растягиваем элемент по ширине */
+}
+
+/* Верхняя часть */
+.header_top {
+    margin-bottom: 86px; /* отступ вниз */
+}
+
+/* Навигация */
+.nav {
+    display: flex;  /* ячейки выстраиваются в ряд */
+    justify-content: space-between; /* разъединяет ячейки друг от друга */
+    column-gap: 80px;   /* отступ между ячейками */
+    align-items: center;    /* выравнивание всех элментов по одной линии (по центру) */
+}
+
+/* Логотип */
+.logo {
+    font-size: 20px;
+    font-weight: 700;   /* толщина текста */
+    color: #FFF;
+}
+
+.logo a {   /* все ссылки внутри лого */
+    color: inherit !important; /* цвет наследуется от лого (ничто не перебивает) */
+}
+
+/* Меню */
+.nav_list {
+    display: flex;  /* выстраиваем элементы в одну линию */
+    column-gap: 80px;   /* отступы между элементами меню (столбцами) */
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.nav_list a {      /* все ссылки */
+    position: relative;     /* родители */
+}
+
+.nav_list a.active::after,
+.nav_list a:hover::after {   /* для активной ссылки и для выбираемой ссылки */
+    content: "";  /* для отображения псевдоэлемента */
+
+    /* рисуется полоска белого цвета (35*4) для активной и/или выбираемой ссылки */
+    position: absolute;     /* дочерний элемент от всех ссылок */
+    left: 0;
+    right: 10px;    /* не доходит до ширины текста каждого подзаголовка на 10px */
+    bottom: -6px;   /* сдвинется вниз */
+
+    display: block;
+    /*width: 35px;*/    /* ширина не нужна */
+    height: 4px;
+    background-color: #C4C4C4;  /* цвет элемента */
+    border-radius: 100px;   /* закругление */
+}
+
+/* Авторизация */
+.nav_login {
+    font-size: 15px;
+    font-weight: 500;
+
+    display: flex;  /* выстраиваются элементы в ряд */
+    column-gap: 25px;  /* отступ между элементами */
+    align-items: center;    /* выравнивание элементов по центру */
+}
+
+/* Кнопка */
+.btn {
+    background: linear-gradient(129.54deg, #FF7B4E 15.57%, #FF584E 95.03%), #FFFFFF; /* градиент и фон кнопки */
+    border-radius: 100px;   /* закругление кнопки */
+    color: #FFF;    /* цвет кнопки */
+
+    display: inline-block;  /* чтобы работали блочные свойства */
+    padding: 13px 44px; /* внутренние отступы (между надписью Login и краями кнопки) */    
+
+    /* надпись Login */
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.btn:hover {    /* в момент выбора (т.е. наведения курсором) */
+    color: rgb(245, 233, 127);
+    transition: color 0.2s ease-in; /* плавное изменение цвета */
+}
+
+.btn:active {   /* когда кнопка активна */
+    position: relative;     /* относительно исходного состояния */
+    top: 1px;               /* смещается вниз на 1 px */
+}
+
+/* Иконка навигации (При разрешении экрана меньше 1000px) */
+.nav_toggle {
+    display: none;
+}
+
+/* Меню иконки навигации (При разрешении экрана меньше 1000px) */
+.menu-icon-wrapper {
+/*   background: red; */
+    width: var(--width-icon);
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+    
+.menu-icon {
+    /* средняя полоска */
+    position: relative;
+    width: var(--width-icon);
+    height: var(--height-icon);
+    background-color: var(--color-icon);
+}
+    
+.menu-icon::before {
+    /* верхняя полоска */
+    position: absolute;
+    left: 0;
+    top: -10px;
+    content: '';
+    width: var(--width-icon);
+    height: var(--height-icon);
+    background-color: var(--color-icon);
+    transition: transform 0.2s ease-in, top 0.2s linear 0.2s;
+    
+}
+    
+.menu-icon::after {
+    /* нижняя полоска */
+    position: absolute;
+    left: 0;
+    top: 10px;
+    content: '';
+    width: var(--width-icon);
+    height: var(--height-icon);
+    background-color: var(--color-icon);
+    transition: transform 0.2s ease-in, top 0.2s linear 0.2s;
+    
+}
+
+/* верхняя и нижняя полоска поворачиваются на 45 градусов и размещаются по центру, образуя крестик (средняя полоска - скрывается) */
+.menu-icon.menu-icon-active {
+    background-color: transparent;
+}
+
+.menu-icon.menu-icon-active::before {
+    transform: rotate(45deg);
+    top: 0;
+    transition: top 0.2s linear, transform 0.2s ease-in 0.2s;
+}
+    
+.menu-icon.menu-icon-active::after {
+    transform: rotate(-45deg);
+    top: 0;
+    transition: top 0.2s linear, transform 0.2s ease-in 0.2s;
+}    
+
+/* Средняя часть и картинка */
+.header_row {
+    display: flex;
+}
+
+/* Контент шапки */
+.header_content {
+    max-width: 592px; /* ограничение по ширине */
+
+    /* чтобы текст не скрывался картинкой при уменьшении экрана */
+    position: relative;
+    z-index: 2;
+}
+
+/* Бейджик */
+.header_badge {
+    font-size: 18px;
+    font-weight: 500;
+
+    background: rgba(255, 255, 255, 0.25);  /* цвет заливки бейджика */
+    border-radius: 15px;    /* скругления */
+
+    padding: 11px 30px;     /* внутренние отступы */
+    display: inline-block;  /* внутреннее пространство = внутреннему тексту */
+    margin-bottom: 7px;     /* внешний отступ вниз */
+}
+
+/* Заголовок */
+.header_title {
+    font-size: 55px;
+    font-weight: 400;
+    margin-bottom: 30px;    /* внешний отступ вниз */
+}
+
+/* Текст */
+.header_text {
+    font-size: 25px;
+    font-weight: 700;
+    margin-bottom: 68px;
+    color: rgba(255, 255, 255, 0.5);   /* прозрачность 0.5 */
+}
+
+/* Кнопка */
+.header_btn {
+    font-size: 25px;
+    font-weight: 600;
+
+    background: linear-gradient(129.54deg, #FF7B4E 15.57%, #FF584E 95.03%);
+    border-radius: 27px;        /* скругления кнопки */
+
+    padding: 27px 48px;         /* внутренние оступы */
+    display: inline-block;      /* пространство внутри кнопки для текста */
+}
+
+.header_btn:hover { /* когда наведён курсор на кнопку */
+    color: rgb(245, 221, 186);
+    transition: color 0.4s ease-in; /* плавное изменение цвета */
+}
+
+.header_btn:active { /* в нажатом состоянии */
+    position: relative;     /* относительно исходного состояния */
+    top: 2px;               /* смещается вниз на 1 px */
+}
+
+/* Картинка с девушкой */
+.header_img {
+    position: relative;
+    flex-grow: 1;   /* возвращается картинка в свой блок */
+}
+
+.header_img img {   /* выбираем конкретно эту картинку */
+    position: absolute; /* чтобы картинка была в блоке, но не сжимала блок с текстом */
+    top: -181px;    /* снизу на 181px вверх */
+    right: -87px;   /* справа на 87px влево */
+    
+    max-width: unset;   /* макс.ширина не задана */
+    width: 894px;
+    height: 940px;
+
+    pointer-events: none;   /* чтоб картинка не перекрывала блок собой */
+}
+
+/* декоративные элементы фона шапки */
+.header_img::after {
+    content: "";     /* чтоб отображался псевдоэлемент */
+
+    position: absolute; /* относительно картинки с девушкой */
+    top: -20px;
+    right: -50px;
+    
+    width: 830px;
+    height: 622px;
+
+    background-image: url(./../img/Header/header-elements.svg); /* путь к элементам */
+    pointer-events: none;   /* чтобы элементы не перекрывали собою блок */
+}
+
+/* Секция Destinations */
+.destinations {
+    padding: 96px 0 100px;  /* отступы верх - 96px, низ - 100px */
+    overflow-x: hidden; /* чтобы не было скролла, при выходе слайдера за экран */
+}
+
+/* Выравнивание в один ряд */
+.destinations_row {
+    display: flex;  /* в один ряд */
+    column-gap: 49px;   /* отступ между контентом и блоком слайдов */
+}
+
+/* Блок с текстом и кнопкой (контентом) */
+.destinations_content {
+    max-width: 456px;
+}
+
+/* Заголовок */
+.destinations_title {
+    font-size: 55px;
+    font-weight: 600;
+    margin-bottom: 15px;    /* отступ от заголовка вниз */
+}
+
+/* Небольшой надзаголовок */
+.destinations_title span {
+    font-size: 30px;
+}
+
+/* Текст */
+.destinations_text {
+    margin-bottom: 60px;    /* отступ вниз от текста */
+    font-size: 25px;
+    font-weight: 500;
+    color: var(--secondary);   /* чёрный с прозрачностью цвет текста */
+}
+
+/* Кнопка */
+.btn_dest {
+    font-size: 20px;
+    font-weight: 600;
+
+    background: linear-gradient(129.54deg, #FF7B4E 15.57%, #FF584E 95.03%);
+    border-radius: 27px;    /* закругления */
+    color: #FFF;    /* цвет кнопки */
+
+    padding: 25px 45px; /* внутренние отступы */
+    display: inline-block;  /* текст в кнопке */
+}
+
+.btn_dest:hover {   /* при наведении на кнопку курсором */
+    color: rgb(245, 221, 186);
+    transition: color 0.4s ease-in; /* плавное изменение цвета */
+}
+
+.btn_dest:active {  /* при нажатии */
+    position: relative;     /* относительно исходного состояния */
+    top: 2px;               /* смещается вниз на 1 px */
+}
+
+/* Блок со слайдами */
+.destinations_slider {
+    width: 1110px;
+    flex-shrink: 0; /* слайдер уходя за экран не уменьшается */
+}
+
+/* Слайдер (Карусель с картинками) */
+.owl-item {
+    display: flex;
+    justify-content: center;
+}
+
+.slider {
+    position: relative; /* родитель */
+    height: 456px;  /* фиксированная высота */
+}
+
+.slider_item {
+    margin-top: 27px;   /* верхний отступ для неактивных картинок */
+
+    width: 335px;
+    height: 402px;
+    object-fit: cover;  /* для корректного масштабирования */
+    border-radius: 35px;    /* скругление */
+
+    transition: 0.2s ease-in;   /* плавная смена размера картинок в прокрутке */
+}
+
+.slider .center .slider_item { /* активная картинка */
+    margin-top: 0;  /* верхний отступ для активной картинки */
+
+    width: 380px;
+    height: 456px;
+}
+
+/* Стрелки-переключатели слайдов */
+.slider_btn {
+    display: block; /* одна стрелка над другой */
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+
+    /* размещение по центру круга стрелки внутри круга */
+    display: flex;
+    align-items: center;
+
+    /* радиус, заливка и градиент круга */
+    background: linear-gradient(129.54deg, #FF7B4E 15.57%, #FF584E 95.03%), #8B8B8B;
+    border-radius: 34px;
+
+    /* расположение стрелки на карусели */
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);    /* -50% от своей высоты (чтобы чётко по центру) */
+    z-index: 9; /* поверх других окон */
+}
+
+.slider_btn--prev { /* левая стрелка */
+    left: -27px;
+    padding-left: 26px;
+    justify-content: flex-start;
+}
+
+.slider_btn--next { /* правая стрелка */
+    right: -27px;
+    padding-right: 26px;
+    justify-content: flex-end;
+}
+
+/* Секция Customers */
+.customers {
+    padding: 100px 0 133px;     /* отступы: 100 - верх, 133 - низ */
+}
+
+.customers_row {
+    display: flex;  /* выстраивает в ряд */
+    column-gap: 68px;   /* отступ между рядами */
+}
+
+/* Картинка Customers */
+.customers_img {
+    max-width: 478px;
+}
+
+.customers_img img {
+    border-radius: 60px;
+}
+
+/* Блок с текстом */
+.customers_content {
+    width: 565px;
+}
+
+/* Заголовок */
+.customers_title {
+    font-size: 45px;
+    font-weight: 500;
+    margin-bottom: 35px;    
+}
+
+/* Отзыв */
+.review {
+    max-width: 490px;
+}
+
+/* Клиент */
+.review_client {
+    margin-bottom: 60px;
+    display: flex;      /* выстраивается с ряд */
+    column-gap: 33px;   /* отступ между колонками */
+    align-items: center;    /* выравнивание по центру */
+}
+
+/* Аватар */
+.review_client-avatar {
+    width: 134px;
+    height: 134px;
+
+    background: #FF794E;
+    border-radius: 50%; /* круг */
+    overflow: hidden;   /* чтоб картинка не выходила за круг */
+}
+
+/* Имя */
+.review_client-desc-name {
+    font-size: 33px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+/* Город, страна */
+.review_client-desc-country {
+    color: var(--secondary);
+    font-size: 25px;
+    font-weight: 400;
+}
+
+/* Текст */
+.review_text {
+    margin-bottom: 30px;
+    color: var(--secondary);
+    font-size: 22px;
+    font-weight: 500;
+}
+
+/* Секция CTA */
+.cta {
+    padding: 100px 0; /* отступы до и после секции (100 - верх и низ) */
+}
+
+/* Плашка */
+.cta_plate {
+    position: relative; /* родитель - для круглешков */
+
+    display: flex;
+    flex-direction: column; /* контент внутри плашки - в колонке */
+    align-items: center;
+    justify-content: center;    /* контент по середине */
+
+    background-color: #fff;
+    border-radius: 60px;
+
+    min-height: 580px;
+    padding: 40px 15px;     /* 40 - верх/низ, 15 - лево/право */
+}
+
+/* Круглешки */
+.cta_plate::before,
+.cta_plate::after {
+    content: "";
+    position: absolute; /* наследование - для плашки */
+    width: 63px;
+    height: 83px;
+}
+
+.cta_plate::before {    /* левая нижняя */
+    background-image: url(./../img/Cta/cta-el-02.svg);
+    left: 74px;
+    bottom: 56px;
+}
+
+.cta_plate::after {     /* правая верхняя */
+    background-image: url(./../img/Cta/cta-el-01.svg);
+    top: 74px;
+    right: 80px;
+}
+
+/* Заголовок */
+.cta_title {
+    font-size: 45px;
+    font-weight: 500;
+    margin-bottom: 30px;
+    text-align: center; /* выравнивание текста по центру */
+}
+
+/* Текст */
+.cta_text {
+    font-size: 30px;
+    margin-bottom: 60px;
+    color: var(--secondary);
+}
+
+/* Секция Subscribe */
+.subscribe {
+    padding: 35px 0 50px;   /* отступы верх - 35, низ - 50 */
+}
+
+.subscribe_content {
+    display: flex;
+    flex-direction: column; /* выстраивание в колонку */
+    align-items: center;
+    text-align: center;     /* текст по центру */
+}
+
+.subscribe_title {
+    max-width: 494px;   /* ограничение по ширине */
+    font-size: 55px;
+    font-weight: 600;
+    margin-bottom: 60px;
+}
+
+/* Форма email и кнопка */
+.subscribe-form {
+    background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #C4C4C4;
+    border-radius: 35px;
+
+    padding: 12px 15px 12px 46px;   /* слева - 46, справа - 15 */
+    display: flex;
+    column-gap: 191px;  /* отступ между кнопкой и email-ом */
+}
+
+.subscribe-form_input {
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.subscribe-form_input::placeholder {
+    color: var(--secondary);
+}
+
+.subscribe-form_btn {
+    font-size: 25px;
+    font-weight: 600;
+    color: #fff;
+
+    background: linear-gradient(129.54deg, #FF7B4E 15.57%, #FF584E 95.03%);
+    border-radius: 35px;        /* скругления кнопки */
+
+    padding: 34px 86px;         /* внутренние оступы */
+    display: inline-block;      /* пространство внутри кнопки для текста */
+}
+
+.subscribe-form_btn:hover { /* когда наведён курсор на кнопку */
+    color: rgb(245, 221, 186);
+    transition: color 0.4s ease-in; /* плавное изменение цвета */
+}
+
+.subscribe-form_btn:active { /* в нажатом состоянии */
+    position: relative;     /* относительно исходного состояния */
+    top: 2px;               /* смещается вниз на 1 px */
+}
+
+/* Подвал */
+.footer {
+    padding: 56px 0 74px;   /* верх - 56, низ - 74 */
+}
+
+.footer a {
+    color: var(--secondary);
+}
+
+/* Подвальный логотип */
+.logo--footer {
+    color: var(--orange);
+}
+
+/* Подвальные колонки */
+.nav_list.nav_list--footer a.active::after,
+.nav_list.nav_list--footer a:hover::after {
+    display: none;  /* убрать все подчёркивания */
+}
+
+.nav_list.nav_list--footer a.active,
+.nav_list.nav_list--footer a:hover {
+    color: var(--orange);
+}
+
+/* Кнопка */
+.btn_dest.footer {
+    width: 128px;
+    height: 49px;
+
+    font-size: 15px;
+    font-weight: 500;
+
+    background: linear-gradient(0deg, #FF7C4E, #FF7C4E), #C4C4C4;
+    border-radius: 100px;    /* закругления */
+    color: #FFF !important;    /* цвет кнопки */
+
+    padding: 13px 44px; /* внутренние отступы */
+    display: inline-block;  /* текст в кнопке */
+}
+
+.btn_dest:hover {   /* при наведении на кнопку курсором */
+    color: rgb(245, 221, 186);
+    transition: color 0.4s ease-in; /* плавное изменение цвета */
+}
+
+.btn_dest:active {  /* при нажатии */
+    position: relative;     /* относительно исходного состояния */
+    top: 2px;               /* смещается вниз на 1 px */
+}
+
+
+/* Media */
+@media (max-width: 1269px) {
+
+    .container-right {  /* нестандартный контейнер (уходящий вправо за экран) */
+        padding-left: 15px;
+    }
+    
+    .container-left {  /* нестандартный контейнер (уходящий вправо за экран) */
+        padding-right: 15px
+    }
+
+    .nav-footer {
+        column-gap: 30px;
+        justify-content: center;
+    }
+
+}
+
+@media (max-width: 1150px) {
+    .destinations_slider {
+        width: 900px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .nav_list-header {
+        display: none;
+    }
+
+    .nav_login-header {
+        display: none;
+    }
+
+    .nav {
+        column-gap: 30px;
+    }
+
+    .nav_list {
+        column-gap: 30px;
+    }
+
+    .nav_toggle {   /* иконка */
+        display: block;
+    }
+
+    .no-scroll {
+        overflow-y: hidden;
+    }
+
+    .nav-mobile {   /* навигация */
+        position: fixed; /* растягивать на всю ширину */
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 99;    /* поверх всех элементов */
+
+        flex-direction: column; /* выстраивание элементов навигации в колонку */
+        padding-top: 40px;
+        padding-bottom: 40px;
+        align-items: center;    /* выравнивание по центру */
+
+        background: linear-gradient(209deg, #428E5F -17.38%, #112120 78.4%), #204434;
+    }
+
+    .nav-mobile .logo {
+        font-size: 34px;    /* логотип увеличивается */
+    }
+
+    .nav-mobile .nav_list {
+        display: flex;
+
+        flex-direction: column; /* список выстроится в колонку */
+        align-items: center;
+        row-gap: 40px;  /* отступ между строками */
+        font-size: 22px;
+    }
+
+    .nav-mobile .nav_list a.active::after,
+    .nav-mobile .nav_list a:hover::after {
+        display: none;  /* убирает подчёркивание */
+    }
+
+    .nav-mobile .nav_login {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        row-gap: 40px;
+        font-size: 22px;
+    }
+
+    .nav-mobile .nav_toggle {   /* иконка */
+        position: fixed;    /* фиксируется */
+        top: 45px;
+        right: 50px;
+    }
+
+    .header_img img {
+        right: -256px;
+    }
+
+    .header_img::after {
+        right: -300px;
+    }
+
+    .destinations_slider {
+        width: 500px;
+    }
+
+    .slider {
+        height: 304px;
+    }
+
+    .slider .slider_item {
+        margin-top: 18px;
+        width: 223px;
+        height: 268px;
+    }
+
+    .slider .center .slider_item {
+        margin-top: 0;
+        width: 253px;
+        height: 304px;
+    }
+
+
+
+}
+
+@media (max-width: 850px) {
+    .container-right {
+        padding-right: 15px;
+    }
+
+    .header {
+        padding-top: 40px;
+        min-height: unset;
+    }
+
+    .header_top {
+        margin-bottom: 40px;
+    }
+
+    .header_row {
+        flex-direction: column;
+    }
+
+    .header_img img {
+        position: static;
+        width: 90%;
+        height: auto;
+    }
+
+    .header_img::after {
+        top: -10px;
+        right: 0;
+    }
+
+    .header_title {
+        font-size: 45px;
+        margin-bottom: 20px;
+    }
+
+    .header_text {
+        max-width: 400px;
+        font-size: 20px;
+        margin-bottom: 40px;
+    }
+
+    .header_badge {
+        font-size: 16px;
+        padding: 8px 20px;
+        border-radius: 30px;
+        margin-bottom: 5px;
+    }
+
+    .header_btn {
+        font-size: 20px;
+        padding: 20px 30px;
+        border-radius: 37px;
+    }
+
+    .destinations {
+        padding: 40px 0 50px;
+    }
+
+    .destinations_row {
+        flex-direction: column;     /* перестраивается в колонку */
+        row-gap: 30px;
+    }
+
+    .destinations_slider {
+        width: 100%;
+    }
+
+    .slider_btn--prev {
+        left: -15px;
+    }
+
+    .slider_btn--next {
+        right: -15px;
+    }
+
+    .destinations_title {
+        margin-bottom: 10px;
+        font-size: 35px;
+    }
+
+    .destinations_title span {
+        font-size: 20px;
+        display: block;
+    }
+
+    .destinations_text {
+        margin-bottom: 30px;
+        font-size: 20px;
+    }
+
+    .btn_dest {
+        font-size: 18px;
+        border-radius: 37px;
+        padding: 20px 35px;
+    }
+
+    /* Customers */
+    .customers {
+        padding: 50px 0 60px;
+    }
+
+    .customers_row {
+        flex-direction: column-reverse;
+        row-gap: 30px;
+    }
+
+    .customers_title {
+        font-size: 38px;
+        margin-bottom: 25px;
+    }
+
+    .review_client {
+        column-gap: 30px;
+        margin-bottom: 20px;
+    }
+
+    .review_client-avatar {
+        width: 100px;
+        height: 100px;
+    }
+
+    .review_client-desc-name {
+        font-size: 25px;
+        margin-bottom: 7px;
+    }
+
+    .review_client-desc-country {
+        font-size: 20px;
+    }
+
+    .review_text {
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+
+    .review_rating {
+        max-width: 230px;
+    }
+
+    .customers_img img {
+        max-width: 330px;
+    }
+
+    /* CTA */
+    .cta {
+        padding: 50px 0;
+    }
+
+    .cta_title {
+        font-size: 40px;
+        margin-bottom: 20px;
+    }
+
+    .cta_text {
+        font-size: 25px;
+        margin-bottom: 30px;
+    }
+
+    .cta_plate {
+        min-height: 380px;
+        padding: 20px 15px;
+    }
+
+    /* Subscribe */
+    .subscribe {
+        padding: 25px 0 30px;   /* верх и низ */
+    }
+
+    .subscribe_title {
+        font-size: 40px;
+        margin-bottom: 30px;
+    }
+
+    .subscribe-form {
+        padding: 10px 10px 10px 20px;
+        border-radius: 25px;
+        column-gap: 100px;
+    }
+
+    .subscribe-form_input {
+        font-size: 20px;
+    }
+
+    .subscribe-form_btn {
+        font-size: 18px;
+        border-radius: 34px;
+        padding: 17px 19px;
+    }
+
+    /* Footer */
+    .nav_login-footer {
+        display: none;
+    }
+
+}
+
+@media (max-width: 600px) {
+    .nav-footer {
+        flex-direction: column-reverse; /* в колонку (reverse) */
+        row-gap: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header_badge {
+        font-size: 14px;
+        padding: 7px 16px;
+    }
+
+    .header_title {
+        font-size: 35px;
+        margin-bottom: 9px;
+    }
+
+    .header_text {
+        font-size: 18px;
+        margin-bottom: 16px;
+    }
+
+    .header_btn {
+        font-size: 18px;
+        padding: 16px 25px;
+    }
+
+    .btn_dest {
+        font-size: 18px;
+        border-radius: 35px;
+        padding: 16px 25px;
+    }
+
+    .destinations_text {
+        margin-bottom: 18px;
+        font-size: 18px;
+    }
+
+    .customers_content {
+        width: 385px;
+    }
+
+    .customers_title {
+        font-size: 28px;
+    }
+
+    .review_client-avatar {
+        width: 60px;
+        height: 60px;
+    }
+
+    .review_client-desc-name {
+        font-size: 22px;
+        margin-bottom: 0;
+    }
+
+    .review_client-desc-country {
+        font-size: 17px;
+    }
+
+    .review_text {
+        font-size: 18px;
+        margin-bottom: 14px;
+    }
+
+    .review_rating img {
+        max-width: 75%;
+    }
+
+    .cta_title {
+        font-size: 31px;
+        margin-bottom: 12px;
+    }
+
+    .cta_text {
+        font-size: 18px;
+        margin-bottom: 16px;
+    }
+
+    .subscribe-form {
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    .subscribe-form_input {
+        margin-bottom: 15px;
+        padding: 15px 0;
+        text-align: center;
+        background-color: #ebe6e6;
+        border-radius: 30px;
+        font-size: 18px;
+    }
+
+    .subscribe_title {
+        font-size: 31px;
+        margin-bottom: 22px;
+    }
+}
+
+@media (max-width: 460px) {
+    .header_img img {
+        width: 100%;
+    }
+
+    .customers_img img {
+        max-width: 100%;
+    }
+
+    .slider_btn--prev {
+        padding-left: 17px;
+    }
+
+    .slider_btn--next {
+        padding-right: 17px;
+    }
+
+    .slider_btn {
+        width: 55px;
+        height: 55px;
+    }
+
+    .nav-mobile .nav_toggle {
+        top: 20px;
+    }
+
+    .nav-mobile .nav_list,
+    .nav-mobile .nav_login {
+        row-gap: 20px;
+    }
+}
+
+@media (max-width: 360px) {
+
+    .header_text {
+        margin-bottom: 9px;
+    }
+
+    .header_btn {
+        font-size: 16px;
+        padding: 12px 20px;
+    }
+
+    .btn_dest {
+        font-size: 16px;
+        padding: 12px 20px;
+    }
+
+    .customers_content {
+        width: 270px;
+    }
+
+    .cta_title {
+        font-size: 25px;
+        margin-bottom: 7px;
+    }
+
+    .cta_text {
+        font-size: 16px;
+        margin-bottom: 13px;
+    }
+
+    .subscribe_title {
+        font-size: 28px;
+        margin-bottom: 9px;
+    }
+
+    .subscribe-form {
+        padding: 5px;
+    }
+
+    .subscribe-form_input {
+        margin-bottom: 8px;
+        padding: 13px 0;
+        font-size: 16px;
+    }
+
+    .subscribe-form_btn {
+        font-size: 16px;
+        padding: 14px 16px;
+    }
+
+    .nav_list {
+        flex-direction: column;
+        align-items: center;
+        row-gap: 12px;
+    }
+}
